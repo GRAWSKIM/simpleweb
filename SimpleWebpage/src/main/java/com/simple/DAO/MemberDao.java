@@ -1,6 +1,8 @@
 package com.simple.DAO;
 
-public interface MemberDao {
+import java.util.Map;
 
-	public boolean login() throws Exception;
+public interface MemberDao {
+	
+	public String login(Map map) throws Exception;
 }

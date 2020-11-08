@@ -22,12 +22,14 @@ public class SignInUpController {
 		return "/signin";
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
+	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView Login(
 			@RequestParam("id") String id,
 			@RequestParam("password") String password,
 			ModelAndView mav,
 			HttpSession session ) throws Exception {
+		
+		System.out.println(id+":"+password);
 		
 		if(service.login(id, password)==false) {
 			mav.addObject("msg", "로그인 실패했습니다.");

@@ -1,9 +1,14 @@
 package com.simple.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.simple.DAO.MemberDao;
 
+@Service
 public class MemberServiceImpl implements MemberService{
 
 	@Autowired
@@ -16,8 +21,18 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public boolean login(String id, String password) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.login();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id",id);
+		map.put("password",password);
+		
+		String loginResult;
+		loginResult = dao.login(map);
+		
+		if ( loginResult == null ||  loginResult.length() == 0 || loginResult.equals("0") ) return false;
+		
+		if ( Integer.parseInt(loginResult) > 0) return true;
+		
+		return false;
 	}
 
 }
