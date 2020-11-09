@@ -18,7 +18,15 @@ public class SignInUpController {
 	MemberService service;
 
 	@RequestMapping("/")
-	public String gotologin() {
+	public String gotologin(HttpSession session) {
+		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+		//session.invalidate();
+		return "/signin";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout() {
+		
 		return "/signin";
 	}
 	
@@ -35,6 +43,7 @@ public class SignInUpController {
 			mav.addObject("msg", "로그인 실패했습니다.");
 			mav.setViewName("/signin");			
 		}else {
+			session.setAttribute("loginid", id);
 			mav.setViewName("/home");
 		}
 						
