@@ -2,7 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simple.DAO">
-	<select id="login" resultType="String">
+	<!-- login -->
+	<select id="login" resultType="String" parameterType="java.util.HashMap">
 		SELECT COUNT(1) FROM USERS WHERE ID=#{id} AND PASSWORD =#{password}
+	</select>	
+	
+	<!-- Board -->
+	<select id= "getBoardList" resultType="com.simple.DTO.BoardDTO" parameterType="java.util.HashMap">
+		select * from ( select * from board
+		<if test="where != null">
+    	where title like '%#{where}%'
+    	</if>
+		 order by pk ) where rownum between to_number(#{pageNo})-1 and to_number(#{pageNo})*5-1; 
 	</select>
+	
+	<select id= "getPageNo" resultType="Integer" parameterType="String">
+		select ceiling(count(1)/5) from board;
+		<if test="where != null">
+    	where title like '%#{where}%'
+    	</if>		  
+	</select>
+	
+	<select id= "getPost" resultType="com.simple.DTO.PostDto" parameterType="String">
+		select * from Post where boardKey=#{boardKey}
+	</select>
+	
+	<select id= "getComments" resultType="com.simple.DTO.PostDto" parameterType="String">
+		select * from Comments where post_key=#{postKey} order by idx asc, create date asc, depth asc 
+	</select>
+	
+	<insert id= "insertPost" parameterType="java.util.HashMap">
+	
+	</insert>
+	
+	<insert id= "insertComment" parameterType="java.util.HashMap">
+	
+	</insert>
 </mapper>

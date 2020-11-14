@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html	lagn="ko" 
+	 	xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorator="layout/default">
+<head>
+<meta charset="UTF-8">
+<title>Board 게시판</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>no</th>
+			<th>제목</th>
+			<th>작성일</th>
+			<th>작성자</th>
+		</tr>
+	</thead>
+	<tbody class="table-hover">
+		<tr th:each="board :${BoardList}">
+			<td th:text=${board.count}+(4*(pageNo-1))>pk</td>
+			<td th:text=${board.title}>title</td>
+			<td th:text=${board.createDate}>createDate</td>
+			<td th:text=${board.createUser}>createUser</td>		
+		</tr>
+	</tbody>
+</table>
+
+<form th:each="num : ${#numbers.sequence(1,${pageCount})}" class="form-inline">
+	<a  class="btn btn-default" href="board?pageNo=${num}" role="button" th:text="${num}">1</a>
+</form>
+
+<form class="form-inline">
+	<div class="form-group">
+		<p class="form-control-static">제목 검색</p>
+	</div>
+	<div class="form-group">
+		<label for="inputPassword2" class="sr-only">Password</label>
+		<input type="text" class="form-control" placeholder="제목 검색">
+	</div>
+	<button type="submit" class="btn btn-default">Search</button>
+</form>
+
+<a class="btn btn-default" href="#" role="button">글쓰기</a>
+	
+</div>
+
+</body>
+</html>

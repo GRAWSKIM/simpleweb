@@ -18,15 +18,15 @@ public class SignInUpController {
 	MemberService service;
 
 	@RequestMapping("/")
-	public String gotologin(HttpSession session) {
-		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
-		//session.invalidate();
+	public String gotologin() {
+		
 		return "/signin";
 	}
 	
 	@RequestMapping("/logout")
-	public String logout() {
-		
+	public String logout(HttpSession session) {
+		//session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
+		session.invalidate();
 		return "/signin";
 	}
 	
