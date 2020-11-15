@@ -3,6 +3,7 @@ package com.simple.contoller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,11 +17,11 @@ public class BoardController {
 	
 	@RequestMapping("/board")
 	public ModelAndView in(
-			@RequestParam("pageNo") String pageNo,
+			@RequestParam(value = "pageNo", required = false) String pageNo,
 			@RequestParam(value = "id", required = false) String where,
 			ModelAndView mav
 			) throws Exception {
-		if ( pageNo.isEmpty() ) pageNo = "0";
+		if ( pageNo == null || pageNo.isEmpty() ) pageNo = "0";
 		
 		mav.addObject("BoardList", service.getBoradList(pageNo,where));
 		mav.addObject("pageCount", service.getPageNo(where));
@@ -36,10 +37,16 @@ public class BoardController {
 		return "/post";
 	}
 	
-	@RequestMapping("/board/write")
+	@RequestMapping("/write")
 	public String write(@RequestParam("id") String id) {
-		
-		return "/board";
+				
+		return "/writepost";
+	}
+	
+	@RequestMapping(value="/writepost", method = RequestMethod.POST)
+	public String writepost(@RequestParam("id") String id) {
+				
+		return "/writepost";
 	}
 	
 }

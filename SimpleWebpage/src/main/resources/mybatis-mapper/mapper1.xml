@@ -8,16 +8,26 @@
 	</select>	
 	
 	<!-- Board -->
+	<!-- 
 	<select id= "getBoardList" resultType="com.simple.DTO.BoardDTO" parameterType="java.util.HashMap">
-		select * from ( select * from board
+		select * from ( select rownum,b.* from board b
 		<if test="where != null">
-    	where title like '%#{where}%'
+    	where b.title like '%#{where}%'
     	</if>
-		 order by pk ) where rownum between to_number(#{pageNo})-1 and to_number(#{pageNo})*5-1; 
+		 order by b.pk ) where rownum between to_number(#{pageNo})-1 and to_number(#{pageNo})*5-1; 
+	</select>
+	 -->
+	
+	<select id= "getBoardList" resultType="com.simple.DTO.BoardDTO" parameterType="java.util.HashMap">
+		select b.* from board b
+		<if test="where != null">
+    	where b.title like '%#{where}%'
+    	</if>
+		 order by b.pk limit 5 offset #{pageNo}*5
 	</select>
 	
 	<select id= "getPageNo" resultType="Integer" parameterType="String">
-		select ceiling(count(1)/5) from board;
+		select ceil(count(1)/5) from board;
 		<if test="where != null">
     	where title like '%#{where}%'
     	</if>		  

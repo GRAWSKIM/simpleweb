@@ -7,9 +7,11 @@
 <meta charset="UTF-8">
 <title>Board 게시판</title>
 </head>
+
 <body>
 
 <div layout:fragment="content">
+<a class="btn btn-default pull-right" th:href="@{/write(id=${session.loginid})}" role="button">글쓰기</a>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -29,9 +31,15 @@
 	</tbody>
 </table>
 
-<form th:each="num : ${#numbers.sequence(1,${pageCount})}" class="form-inline">
-	<a  class="btn btn-default" href="board?pageNo=${num}" role="button" th:text="${num}">1</a>
-</form>
+<th:block th:if="${pageCount != 0}">
+<span  class="form-inline">
+	<a  class="btn btn-default" 
+		th:each="num : ${#numbers.sequence(1,pageCount)}"
+		th:href="@{board?pageNo=${num}}" 
+		role="button" 
+		th:text="${num}">1</a>
+</span>
+</th:block>
 
 <form class="form-inline">
 	<div class="form-group">
@@ -43,8 +51,6 @@
 	</div>
 	<button type="submit" class="btn btn-default">Search</button>
 </form>
-
-<a class="btn btn-default" href="#" role="button">글쓰기</a>
 	
 </div>
 
