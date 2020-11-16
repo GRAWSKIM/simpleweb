@@ -23,7 +23,7 @@
 		<if test="where != null">
     	where b.title like '%#{where}%'
     	</if>
-		 order by b.pk limit 5 offset #{pageNo}*5
+		 order by b.pk asc limit 5 offset #{pageNo}*5
 	</select>
 	
 	<select id= "getPageNo" resultType="Integer" parameterType="String">
@@ -40,12 +40,8 @@
 	<select id= "getComments" resultType="com.simple.DTO.PostDto" parameterType="String">
 		select * from Comments where post_key=#{postKey} order by idx asc, create date asc, depth asc 
 	</select>
-	
-	<insert id= "insertPost" parameterType="java.util.HashMap">
-	
-	</insert>
-	
-	<insert id= "insertComment" parameterType="java.util.HashMap">
-	
+
+	<insert id= "writeBoard" parameterType="java.util.HashMap">
+		insert into board (pk,title,createDate,createUser,contents) values ((select max(pk)+1 from board),#{title},#{createDate},#{id},#{contents})
 	</insert>
 </mapper>

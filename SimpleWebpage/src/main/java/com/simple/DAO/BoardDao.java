@@ -13,5 +13,9 @@ public interface BoardDao {
 	public int getPageNo(String where) throws Exception;
 	public PostDto getPost(String postKey) throws Exception;
 	public CommentDto getComment(String postKey) throws Exception;
-	public boolean writePost(String userID) throws Exception;
+	public int writePost(Map<String, String> map) throws Exception;
+	public int writetBoard(Map<String, String> map) throws Exception;
+	
+	public String getSequence(String name) throws Exception;
+	public int setSequence(Map<String, String> map) throws Exception;
 }

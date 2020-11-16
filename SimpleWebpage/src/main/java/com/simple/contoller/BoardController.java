@@ -1,5 +1,10 @@
 package com.simple.contoller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +49,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/writepost", method = RequestMethod.POST)
-	public String writepost(@RequestParam("id") String id) {
-				
-		return "/writepost";
+	public ModelAndView writepost(
+			ModelAndView mav,
+			HttpSession session,
+			@RequestParam("title") String title,
+			@RequestParam("contents") String contents
+			) throws Exception {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("id",(String)session.getAttribute("loginid"));
+		map.put("title",title);
+		map.put("contents",contents);
+		
+		service.writePost(map);
+		
+		mav.setViewName("/writepost");
+		mav.addObject("msg","입력완료");
+		
+		return mav;
 	}
 	
 }

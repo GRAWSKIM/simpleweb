@@ -10,6 +10,8 @@
 
 <body>
 <div layout:fragment="content">
+
+	<p th:text="${msg}">msg</p>
 	<form class= "form-horizontal" th:action="@{/writepost}" method="post">	
 		<label for="title_input">제목</label>
 		<input type="text" class="form-control" id = "title_input" name="title" placeholder="제목을 입력해주세요">

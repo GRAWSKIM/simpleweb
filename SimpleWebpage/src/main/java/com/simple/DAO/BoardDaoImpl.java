@@ -40,9 +40,30 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public boolean writePost(String userID) throws Exception {
+	public int writePost(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return sqlsessiontemplate.insert("writePost",map);
 	}
+
+	@Override
+	public int writetBoard(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsessiontemplate.insert("writeBoard",map);
+	}
+
+	@Override
+	public String getSequence(String name) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsessiontemplate.selectOne("getSequence", name);
+	}
+
+	@Override
+	public int setSequence(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsessiontemplate.update("setSequence", map);
+	}
+
+
+
 
 }

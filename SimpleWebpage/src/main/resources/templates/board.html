@@ -23,7 +23,7 @@
 	</thead>
 	<tbody class="table-hover">
 		<tr th:each="board :${BoardList}">
-			<td th:text=${board.count}+(4*(pageNo-1))>pk</td>
+			<td th:text=${board.count}+(4*(${pageNo}-1))>pk</td>
 			<td th:text=${board.title}>title</td>
 			<td th:text=${board.createDate}>createDate</td>
 			<td th:text=${board.createUser}>createUser</td>		

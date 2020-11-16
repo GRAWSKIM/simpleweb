@@ -1,5 +1,7 @@
 package com.simple.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +27,18 @@ public class BoardServiceImpl implements BoardService{
 		if (where!=null) map.put("where", where);
 		map.put("pageNo", pageNo);
 		
-		dao.getBoradList(map);
-		return null;
+		
+		return dao.getBoradList(map);
+	}
+	@Override
+	public int writePost(Map<String, String> map) throws Exception {
+
+		SimpleDateFormat frmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		
+		map.put("createDate",frmt1.format(time));
+		
+		return dao.writetBoard(map);
 	}
 	
 	@Override
@@ -45,12 +57,6 @@ public class BoardServiceImpl implements BoardService{
 	public CommentDto getComment(String postKey) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean writePost(String userID) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

@@ -9,6 +9,7 @@ public class BoardDTO {
 	private String title;
 	private String createDate;
 	private String createUser;
+	private String contents;
 	
 	public String getPk() {
 		return pk;
@@ -34,5 +35,10 @@ public class BoardDTO {
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
-		
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}	
 }
