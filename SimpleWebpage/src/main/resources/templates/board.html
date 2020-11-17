@@ -12,7 +12,8 @@
 
 <div layout:fragment="content">
 <a class="btn btn-default pull-right" th:href="@{/write(id=${session.loginid})}" role="button">글쓰기</a>
-<table class="table table-striped">
+
+<table class="table table-striped">	
 	<thead>
 		<tr>
 			<th>no</th>
@@ -22,8 +23,8 @@
 		</tr>
 	</thead>
 	<tbody class="table-hover">
-		<tr th:each="board :${BoardList}">
-			<td th:text=${board.count}+(4*(${pageNo}-1))>pk</td>
+		<tr th:each="board,i :${BoardList}">
+			<td th:text=${i.size-i.index}+(4*(${pageNo}))>pk</td>
 			<td th:text=${board.title}>title</td>
 			<td th:text=${board.createDate}>createDate</td>
 			<td th:text=${board.createUser}>createUser</td>		
