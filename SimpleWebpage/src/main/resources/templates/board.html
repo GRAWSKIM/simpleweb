@@ -16,7 +16,6 @@
 <table class="table table-striped">	
 	<thead>
 		<tr>
-			<th>no</th>
 			<th>제목</th>
 			<th>작성일</th>
 			<th>작성자</th>
@@ -24,8 +23,7 @@
 	</thead>
 	<tbody class="table-hover">
 		<tr th:each="board,i :${BoardList}">
-			<td th:text=${i.size-i.index}+(4*(${pageNo}))>pk</td>
-			<td th:text=${board.title}>title</td>
+			<td th:text=${board.title}><a th:href="@{/readpost(postkey=${board.pk})}">title</a></td>
 			<td th:text=${board.createDate}>createDate</td>
 			<td th:text=${board.createUser}>createUser</td>		
 		</tr>
@@ -36,7 +34,7 @@
 <span  class="form-inline">
 	<a  class="btn btn-default" 
 		th:each="num : ${#numbers.sequence(1,pageCount)}"
-		th:href="@{board?pageNo=${num}}" 
+		th:href="@{board(pageNo=${num})}" 
 		role="button" 
 		th:text="${num}">1</a>
 </span>

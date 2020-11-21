@@ -18,9 +18,12 @@ public class SignInUpController {
 	MemberService service;
 
 	@RequestMapping("/")
-	public String gotologin() {
+	public String gotologin(HttpSession session) {
 		
-		return "/signin";
+		if( session.getAttribute("loginid")== null ) {
+			return "/signin";
+		}
+		return "/home";		
 	}
 	
 	@RequestMapping("/logout")
@@ -50,4 +53,29 @@ public class SignInUpController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/signup")
+	public ModelAndView SignUp(ModelAndView mav) {
+		mav.setViewName("/signin");
+		mav.addObject("flag","signup");
+		return mav;
+	}
+	
+	@RequestMapping(value="/insertuser")
+	public ModelAndView insertUser(
+			ModelAndView mav,
+			@RequestParam("id") String id,
+			@RequestParam("password") String password
+			) throws Exception {
+		String result = service.signup(id, password);
+		
+		if(result.equals("OK")) {
+			mav.addObject("msg", "회원가입에 성공했습니다.");
+			mav.setViewName("/signin");
+		}else {
+			mav.addObject("msg", result);
+			mav.addObject("flag","signup");
+			mav.setViewName("/signin");
+		}
+		return mav;
+	}
 }

@@ -35,4 +35,25 @@ public class MemberServiceImpl implements MemberService{
 		return false;
 	}
 
+	@Override
+	public String signup(String id, String password) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id",id);
+		map.put("password",password);
+		
+		String checkDuplicate = dao.duplicateID(map);
+		if(!checkDuplicate.equals("0")) {
+			return "이미 있는 ID";
+		}
+		
+		int result = dao.signup(map);
+		
+		if(result==1) {
+			return "OK";
+		}else {
+			return "ID 생성에 실패했습니다.";
+		}		
+		
+	}
+
 }

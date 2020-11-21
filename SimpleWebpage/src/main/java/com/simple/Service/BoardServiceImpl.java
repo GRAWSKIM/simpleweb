@@ -25,8 +25,7 @@ public class BoardServiceImpl implements BoardService{
 		Map<String,String> map = new HashMap<String, String>();
 		
 		if (where!=null) map.put("where", where);
-		map.put("pageNo", pageNo);
-		
+		map.put("pageNo", pageNo);		
 		
 		return dao.getBoradList(map);
 	}
@@ -44,7 +43,14 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getPageNo(String where) throws Exception {
 		
-		return dao.getPageNo(where);
+		int result = dao.getPageNo(where);
+		System.out.println(result);
+		if (result > 0) {
+			float num  = (float)result/5;
+			return (int)Math.ceil(num);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -60,3 +66,4 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 }
+

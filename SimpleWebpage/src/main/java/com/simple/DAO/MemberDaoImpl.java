@@ -14,8 +14,17 @@ public class MemberDaoImpl implements MemberDao{
 	
 	@Override
 	public String login(Map map) throws Exception {
-		// TODO Auto-generated method stub
 		return sqlsessiontemplate.selectOne("login", map);
+	}
+
+	@Override
+	public int signup(Map map) throws Exception {
+		return sqlsessiontemplate.insert("signup", map);
+	}
+
+	@Override
+	public String duplicateID(Map map) throws Exception {
+		return sqlsessiontemplate.selectOne("checkDuplicateID", map);
 	}
 
 }

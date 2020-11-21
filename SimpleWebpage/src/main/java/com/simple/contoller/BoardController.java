@@ -26,7 +26,7 @@ public class BoardController {
 			@RequestParam(value = "id", required = false) String where,
 			ModelAndView mav
 			) throws Exception {
-		if ( pageNo == null || pageNo.isEmpty() ) pageNo = "0";
+		if ( pageNo == null || pageNo.isEmpty() ) pageNo = "1";
 		
 		mav.addObject("BoardList", service.getBoradList(pageNo,where));
 		mav.addObject("pageCount", service.getPageNo(where));
