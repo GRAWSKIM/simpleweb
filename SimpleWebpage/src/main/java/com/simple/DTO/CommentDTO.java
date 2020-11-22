@@ -3,11 +3,12 @@ package com.simple.DTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommentDto {
+public class CommentDTO {
 
 	private String pk;
-	private String postKey;
+	private String boardkey;
 	private String depth;
+	private String comment;
 	private String idx;
 	private String createDate;
 	private String userID;
@@ -18,17 +19,23 @@ public class CommentDto {
 	public void setPk(String pk) {
 		this.pk = pk;
 	}
-	public String getPostKey() {
-		return postKey;
+	public String getBoardkey() {
+		return boardkey;
 	}
-	public void setPostKey(String postKey) {
-		this.postKey = postKey;
+	public void setBoardkey(String boardkey) {
+		this.boardkey = boardkey;
 	}
 	public String getDepth() {
 		return depth;
 	}
 	public void setDepth(String depth) {
 		this.depth = depth;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public String getIdx() {
 		return idx;

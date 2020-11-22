@@ -16,16 +16,6 @@
 	</insert>
 	
 	<!-- Board -->
-	<!-- 
-	<select id= "getBoardList" resultType="com.simple.DTO.BoardDTO" parameterType="java.util.HashMap">
-		select * from ( select rownum,b.* from board b
-		<if test="where != null">
-    	where b.title like '%#{where}%'
-    	</if>
-		 order by b.pk ) where rownum between to_number(#{pageNo})-1 and to_number(#{pageNo})*5-1; 
-	</select>
-	 -->
-	
 	<select id= "getBoardList" resultType="com.simple.DTO.BoardDTO" parameterType="java.util.HashMap">
 		select b.* from board b
 		<if test="where != null">
@@ -41,13 +31,24 @@
     	</if>		  
 	</select>
 	
-	<select id= "getPost" resultType="com.simple.DTO.PostDto" parameterType="String">
-		select * from Post where boardKey=#{boardKey}
+	<select id= "getPost" resultType="com.simple.DTO.BoardDTO" parameterType="String">
+		select * from board where pk=#{boardkey}
 	</select>
 	
-	<select id= "getComments" resultType="com.simple.DTO.PostDto" parameterType="String">
-		select * from Comments where post_key=#{postKey} order by idx asc, create date asc, depth asc 
+	<select id= "getComments" resultType="com.simple.DTO.CommentDTO" parameterType="String">
+		select * from Comments where boardKey=#{boardkey} order by idx asc, create date asc, depth asc 
 	</select>
+
+	<insert id= "addRelpy" parameterType="java.util.HashMap">
+		insert into comments (pk,postkey,depth,idx,createDate,id,reply) values 
+		((select coalesce(pk,0,max(pk))+1 from comments),
+		#{boardkey},
+		#{depth},
+		(select coalesce(idx,0,max(idx))+1 from comments WHERE postKey=#{boardkey} and depth=#{depth}),
+		#{createDate},
+		#{id}
+		#{reply})
+	</insert>
 
 	<insert id= "writeBoard" parameterType="java.util.HashMap">
 		insert into board (pk,title,createDate,createUser,contents) values ((select max(pk)+1 from board),#{title},#{createDate},#{id},#{contents})

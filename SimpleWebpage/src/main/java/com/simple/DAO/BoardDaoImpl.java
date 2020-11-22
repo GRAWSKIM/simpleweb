@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.simple.DTO.BoardDTO;
-import com.simple.DTO.CommentDto;
-import com.simple.DTO.PostDto;
+import com.simple.DTO.CommentDTO;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -28,13 +27,13 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public PostDto getPost(String postKey) throws Exception {
+	public BoardDTO getPost(String postKey) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlsessiontemplate.selectOne("getPost",postKey);
 	}
 
 	@Override
-	public CommentDto getComment(String postKey) throws Exception {
+	public CommentDTO getComment(String postKey) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -61,6 +60,11 @@ public class BoardDaoImpl implements BoardDao{
 	public int setSequence(Map<String, String> map) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlsessiontemplate.update("setSequence", map);
+	}
+
+	@Override
+	public int addReply(Map<String, String> map) throws Exception {
+		return sqlsessiontemplate.insert("addReply", map);
 	}
 
 

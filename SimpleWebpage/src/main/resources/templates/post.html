@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html	lagn="ko" 
+	 	xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorator="layout/default">
+<head>
+<meta charset="UTF-8">
+<title>게시글 보기</title>
+</head>
+
+<script>
+var responseObject= ${BoardList};
+
+$(document).ready(function(){	
+});
+
+function sendReply(depth){	
+	var reply = $.trim($('#inputReply').val());
+	var pk = responseObject.pk;
+		
+	if(pk==null){ alert('비정상적인 접근입니다.'); return false;}
+	if(reply==''){ alert('내용을 입력해주세요.'); return false;}
+	$.trim(depth);
+	if(depth=='') depth='0'
+	
+	$.ajax({
+		url:'/addreply?reply='+reply+'&depth='+depth+'&boardkey='+boardkey,
+		type:post,
+		dataType:'json',
+		success:function(data){
+			alert('성공'+data);
+		},error:function(e){
+			alert('에러'+e);
+		}
+		
+	});//ajax end
+};
+</script>
+
+<body>
+
+<div layout:fragment="content">
+
+<div class="page-header">
+  <h1 th:text=${post.title}>title</h1>
+  <small th:text=${post.createUser}>user</small>
+  <small th:text=${post.createDate}>date</small>
+</div>
+
+<div class="jumbotron">  
+  <p th:text="${post.contents}"></p>
+</div>
+
+<table class="table table-striped">	
+	<thead>
+		<tr>
+			<th class="col-md-4">댓글</th>
+			<th class="col-md-2">작성일</th>
+			<th class="col-md-2">작성자</th>
+		</tr>
+	</thead>
+	<tbody class="table table-hover">
+		<tr th:each="board,i :${BoardList}" th:onclick="'window.location.href=\'' + @{/readpost(boardKey=${board.pk})} +'\''" style="cursor:pointer;">
+			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
+			<td th:text=${board.title}>title</td>
+			<td th:text=${board.createDate}>createDate</td>
+			<td th:text=${board.createUser}>createUser</td>		
+		</tr>
+	</tbody>
+</table>
+<form class="form-horizontal"  onsubmit="false">
+	<div class="form-group">	    
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" id="inputReply" placeholder="댓글을 입력해주세요">
+	    </div>
+	    <button type="button" id="addReply" class="btn btn-primary" onsubmit="false" onclick="sendReply(0)">입력</button>
+	</div>
+</form>
+</div>
+
+</body>
+</html>

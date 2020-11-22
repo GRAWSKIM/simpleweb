@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.simple.DAO.BoardDao;
 import com.simple.DTO.BoardDTO;
-import com.simple.DTO.CommentDto;
-import com.simple.DTO.PostDto;
+import com.simple.DTO.CommentDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -54,15 +53,22 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public PostDto getPost(String postKey) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardDTO getPost(String postKey) throws Exception {
+		
+		return dao.getPost(postKey);
 	}
 
 	@Override
-	public CommentDto getComment(String postKey) throws Exception {
+	public CommentDTO getComment(String postKey) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public int addReply(Map<String, String> map) throws Exception {
+		SimpleDateFormat frmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();		
+		map.put("createDate",frmt1.format(time));		
+		return dao.addReply(map);			
 	}
 
 }

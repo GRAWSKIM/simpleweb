@@ -16,14 +16,15 @@
 <table class="table table-striped">	
 	<thead>
 		<tr>
-			<th>제목</th>
-			<th>작성일</th>
-			<th>작성자</th>
+			<th class="col-md-4">제목</th>
+			<th class="col-md-2">작성일</th>
+			<th class="col-md-2">작성자</th>
 		</tr>
 	</thead>
-	<tbody class="table-hover">
-		<tr th:each="board,i :${BoardList}">
-			<td th:text=${board.title}><a th:href="@{/readpost(postkey=${board.pk})}">title</a></td>
+	<tbody class="table table-hover">
+		<tr th:each="board,i :${BoardList}" th:onclick="'window.location.href=\'' + @{/readpost(boardKey=${board.pk})} +'\''" style="cursor:pointer;">
+			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
+			<td th:text=${board.title}>title</td>
 			<td th:text=${board.createDate}>createDate</td>
 			<td th:text=${board.createUser}>createUser</td>		
 		</tr>
