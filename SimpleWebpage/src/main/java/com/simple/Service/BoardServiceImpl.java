@@ -59,15 +59,16 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public CommentDTO getComment(String postKey) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CommentDTO> getComment(String postKey) throws Exception {
+		
+		return dao.getComment(postKey);
 	}
 	@Override
 	public int addReply(Map<String, String> map) throws Exception {
 		SimpleDateFormat frmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();		
-		map.put("createDate",frmt1.format(time));		
+		map.put("createDate",frmt1.format(time));
+		System.out.println("service in");
 		return dao.addReply(map);			
 	}
 

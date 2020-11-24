@@ -8,10 +8,10 @@ public class CommentDTO {
 	private String pk;
 	private String boardkey;
 	private String depth;
-	private String comment;
+	private String reply;
 	private String idx;
 	private String createDate;
-	private String userID;
+	private String id;
 	
 	public String getPk() {
 		return pk;
@@ -31,11 +31,11 @@ public class CommentDTO {
 	public void setDepth(String depth) {
 		this.depth = depth;
 	}
-	public String getComment() {
-		return comment;
+	public String getReply() {
+		return reply;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setreply(String reply) {
+		this.reply = reply;
 	}
 	public String getIdx() {
 		return idx;
@@ -49,10 +49,10 @@ public class CommentDTO {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	public String getUserID() {
-		return userID;
+	public String getId() {
+		return id;
 	}
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setId(String id) {
+		this.id = id;
 	}
 }

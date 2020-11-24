@@ -77,6 +77,7 @@ public class BoardController {
 			@RequestParam("boardKey") String boardKey) throws Exception {
 		
 		mav.addObject("post", service.getPost(boardKey));
+		mav.addObject("comments", service.getComment(boardKey));
 		mav.setViewName("post");
 		
 		return mav;		
@@ -92,7 +93,7 @@ public class BoardController {
 		Map<String, String> map = new HashMap<String, String>();		
 		map.put("id",(String)session.getAttribute("loginid"));
 		map.put("reply",reply);
-		map.put("boardKey",boardkey);
+		map.put("boardkey",boardkey);
 		map.put("depth",depth);
 		
 		service.addReply(map);

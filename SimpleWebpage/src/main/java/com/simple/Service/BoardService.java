@@ -11,7 +11,7 @@ public interface BoardService {
 	public int getPageNo(String where) throws Exception;
 	
 	public BoardDTO getPost(String postKey) throws Exception;
-	public CommentDTO getComment(String postKey) throws Exception;
+	public List<CommentDTO> getComment(String postKey) throws Exception;
 	public int addReply(Map<String,String> map) throws Exception;
 		
 	public int writePost(Map<String,String> map) throws Exception;

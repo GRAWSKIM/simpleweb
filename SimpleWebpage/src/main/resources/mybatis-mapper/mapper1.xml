@@ -36,17 +36,17 @@
 	</select>
 	
 	<select id= "getComments" resultType="com.simple.DTO.CommentDTO" parameterType="String">
-		select * from Comments where boardKey=#{boardkey} order by idx asc, create date asc, depth asc 
+		select * from Comments where postKey=#{boardkey} order by idx asc, createDate asc, depth asc 
 	</select>
 
-	<insert id= "addRelpy" parameterType="java.util.HashMap">
+	<insert id= "addReply" parameterType="java.util.HashMap">
 		insert into comments (pk,postkey,depth,idx,createDate,id,reply) values 
 		((select coalesce(pk,0,max(pk))+1 from comments),
 		#{boardkey},
 		#{depth},
 		(select coalesce(idx,0,max(idx))+1 from comments WHERE postKey=#{boardkey} and depth=#{depth}),
 		#{createDate},
-		#{id}
+		#{id},
 		#{reply})
 	</insert>
 

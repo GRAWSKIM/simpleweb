@@ -33,9 +33,9 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public CommentDTO getComment(String postKey) throws Exception {
+	public List<CommentDTO> getComment(String boardKey) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlsessiontemplate.selectList("getComments",boardKey);
 	}
 
 	@Override

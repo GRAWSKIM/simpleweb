@@ -7,25 +7,28 @@
 <meta charset="UTF-8">
 <title>게시글 보기</title>
 </head>
+<body>
 
-<script>
-var responseObject= ${BoardList};
+<div layout:fragment="content">
 
-$(document).ready(function(){	
-});
+<script type="text/javascript">
+
+$(document).ready(function(){});
 
 function sendReply(depth){	
-	var reply = $.trim($('#inputReply').val());
-	var pk = responseObject.pk;
-		
-	if(pk==null){ alert('비정상적인 접근입니다.'); return false;}
+
+	var reply = $.trim($("#inputReply").val());
+	var pk = $("#postpk").val();
+
+	if(pk==''){ alert('비정상적인 접근입니다.'); return false;}
 	if(reply==''){ alert('내용을 입력해주세요.'); return false;}
+		
 	$.trim(depth);
 	if(depth=='') depth='0'
-	
+
 	$.ajax({
-		url:'/addreply?reply='+reply+'&depth='+depth+'&boardkey='+boardkey,
-		type:post,
+		url:'/addreply?reply='+reply+'&depth='+depth+'&boardkey='+pk,
+		type: 'POST',
 		dataType:'json',
 		success:function(data){
 			alert('성공'+data);
@@ -34,17 +37,15 @@ function sendReply(depth){
 		}
 		
 	});//ajax end
-};
+};//function end
 </script>
 
-<body>
-
-<div layout:fragment="content">
 
 <div class="page-header">
   <h1 th:text=${post.title}>title</h1>
   <small th:text=${post.createUser}>user</small>
   <small th:text=${post.createDate}>date</small>
+  <input type="hidden" th:value=${post.pk} id="postpk"/>
 </div>
 
 <div class="jumbotron">  
@@ -60,11 +61,11 @@ function sendReply(depth){
 		</tr>
 	</thead>
 	<tbody class="table table-hover">
-		<tr th:each="board,i :${BoardList}" th:onclick="'window.location.href=\'' + @{/readpost(boardKey=${board.pk})} +'\''" style="cursor:pointer;">
+		<tr th:each="comment : ${comments}">
 			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
-			<td th:text=${board.title}>title</td>
-			<td th:text=${board.createDate}>createDate</td>
-			<td th:text=${board.createUser}>createUser</td>		
+			<td th:text=${comment.reply}>reply</td>
+			<td th:text=${comment.createDate}>createDate</td>
+			<td th:text=${comment.id}>createUser</td>		
 		</tr>
 	</tbody>
 </table>
@@ -74,6 +75,7 @@ function sendReply(depth){
 	      <input type="text" class="form-control" id="inputReply" placeholder="댓글을 입력해주세요">
 	    </div>
 	    <button type="button" id="addReply" class="btn btn-primary" onsubmit="false" onclick="sendReply(0)">입력</button>
+	    <!--  onclick="sendReply(0)" -->
 	</div>
 </form>
 </div>
