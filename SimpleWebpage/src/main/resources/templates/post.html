@@ -29,15 +29,22 @@ function sendReply(depth){
 	$.ajax({
 		url:'/addreply?reply='+reply+'&depth='+depth+'&boardkey='+pk,
 		type: 'POST',
-		dataType:'json',
 		success:function(data){
-			alert('성공'+data);
+			if(data == null){	alert("댓글입력에 실패했습니다");	return;	}
+			addReply(data);			
 		},error:function(e){
-			alert('에러'+e);
+			alert('에러: 통신에 문제가 생겼습니다.');
 		}
 		
 	});//ajax end
 };//function end
+
+function addReply(comment){
+	console.log(comment);
+	$("#replyArea").append(
+		"<tr><td>"+comment.reply+"</td><td>"+comment.createDate+"</td><td>"+comment.id+"</td>tr/>"	
+	);
+}
 </script>
 
 
@@ -60,7 +67,7 @@ function sendReply(depth){
 			<th class="col-md-2">작성자</th>
 		</tr>
 	</thead>
-	<tbody class="table table-hover">
+	<tbody class="table table-hover" id="replyArea">
 		<tr th:each="comment : ${comments}">
 			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
 			<td th:text=${comment.reply}>reply</td>
@@ -69,15 +76,15 @@ function sendReply(depth){
 		</tr>
 	</tbody>
 </table>
-<form class="form-horizontal"  onsubmit="false">
-	<div class="form-group">	    
-	    <div class="col-sm-10">
-	      <input type="text" class="form-control" id="inputReply" placeholder="댓글을 입력해주세요">
-	    </div>
-	    <button type="button" id="addReply" class="btn btn-primary" onsubmit="false" onclick="sendReply(0)">입력</button>
-	    <!--  onclick="sendReply(0)" -->
-	</div>
-</form>
+
+<div class="form-group">	    
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputReply" placeholder="댓글을 입력해주세요">
+    </div>
+    <button type="button" id="addReply" class="btn btn-primary" onsubmit="false" onclick="sendReply(0)">입력</button>
+    <!--  onclick="sendReply(0)" -->
+</div>
+
 </div>
 
 </body>

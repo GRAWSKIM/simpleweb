@@ -65,10 +65,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	@Override
 	public int addReply(Map<String, String> map) throws Exception {
-		SimpleDateFormat frmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();		
-		map.put("createDate",frmt1.format(time));
-		System.out.println("service in");
+		
 		return dao.addReply(map);			
 	}
 

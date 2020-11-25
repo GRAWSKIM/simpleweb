@@ -1,5 +1,7 @@
 package com.simple.contoller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simple.DTO.CommentDTO;
 import com.simple.Service.BoardService;
 
 @Controller
@@ -85,7 +88,7 @@ public class BoardController {
 	
 	@ResponseBody
 	@RequestMapping(value="addreply",method = RequestMethod.POST)
-	public void addReply(
+	public CommentDTO addReply(
 			HttpSession session,
 			@RequestParam("reply") String reply,
 			@RequestParam("boardkey") String boardkey,
@@ -95,7 +98,20 @@ public class BoardController {
 		map.put("reply",reply);
 		map.put("boardkey",boardkey);
 		map.put("depth",depth);
+		SimpleDateFormat frmt1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();		
+		map.put("createDate",frmt1.format(time));
+					
+		CommentDTO commentdto = null;
+		if ( service.addReply(map) > 0 ) {
+			commentdto = new CommentDTO();
+			commentdto.setreply(reply);
+			commentdto.setId((String)session.getAttribute("loginid"));
+			commentdto.setCreateDate(frmt1.format(time));
+			
+			return commentdto;
+		}
 		
-		service.addReply(map);
+		return commentdto;
 	}
 }
