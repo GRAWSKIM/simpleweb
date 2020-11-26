@@ -12,12 +12,21 @@
 <div layout:fragment="content">
 
 	<p th:text="${msg}">msg</p>
-	<form class= "form-horizontal" th:action="@{/writepost}" method="post">	
+	<form th:if="${modify == null}" class= "form-horizontal" th:action="@{/writepost}" method="post">	
 		<label for="title_input">제목</label>
 		<input type="text" class="form-control" id = "title_input" name="title" placeholder="제목을 입력해주세요">
 		<label for="content_input">내용</label>
 		<textarea class="form-control" id = "content_input" name="contents" rows="10"></textarea>
 		<button type="submit" class="btn btn-default pull-right">작성</button>	
+	</form>
+	
+	<form th:if="${modify != null}" class= "form-horizontal" th:action="@{/editpost}" method="post">	
+		<label for="title_input">제목</label>
+		<input type="text" class="form-control" id = "title_input" name="title" th:value="${post.title}">
+		<label for="content_input">내용</label>
+		<textarea class="form-control" id = "content_input" name="contents" rows="10" th:value="${post.contents}"></textarea>		
+		<input type="hidden" th:value="${post.pk}" name="pk">
+		<button type="submit" class="btn btn-default pull-right">수정</button>	
 	</form>
 </div>
 </body>

@@ -35,6 +35,10 @@
 		select * from board where pk=#{boardkey}
 	</select>
 	
+	<update id="updatePost" parameterType="java.util.HashMap">
+		update board set title=#{title}, contents= #{contents} where pk = #{pk}
+	</update>
+	
 	<select id= "getComments" resultType="com.simple.DTO.CommentDTO" parameterType="String">
 		select * from Comments where postKey=#{boardkey} order by idx asc, createDate asc, depth asc 
 	</select>

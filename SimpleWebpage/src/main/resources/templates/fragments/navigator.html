@@ -5,7 +5,8 @@
 	
 	<script language="javascript">	
 	/*jQuery 보다 속도가 빠르다고 하여 javascript 사용*/
-	if(window.sessionStorage.getItem("loginid")== null){
+	//if(window.sessionStorage.getItem("loginid")== null){
+		if(window.sessionStorage.getItem("loginid").length<1){
 		document.form.action="/";
 		document.form.submit();
 	}

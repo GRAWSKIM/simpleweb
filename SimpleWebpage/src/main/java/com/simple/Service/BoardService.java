@@ -15,4 +15,6 @@ public interface BoardService {
 	public int addReply(Map<String,String> map) throws Exception;
 		
 	public int writePost(Map<String,String> map) throws Exception;
+	
+	public int updatePost(Map<String,String> map) throws Exception;
 }

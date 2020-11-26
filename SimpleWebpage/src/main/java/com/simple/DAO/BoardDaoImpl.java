@@ -67,6 +67,12 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlsessiontemplate.insert("addReply", map);
 	}
 
+	@Override
+	public int updatePost(Map<String, String> map) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsessiontemplate.update("updatePost", map);
+	}
+
 
 
 

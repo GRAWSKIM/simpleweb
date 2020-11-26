@@ -68,6 +68,10 @@ public class BoardServiceImpl implements BoardService{
 		
 		return dao.addReply(map);			
 	}
+	@Override
+	public int updatePost(Map<String, String> map) throws Exception {		
+		return dao.updatePost(map);
+	}
 
 }
 

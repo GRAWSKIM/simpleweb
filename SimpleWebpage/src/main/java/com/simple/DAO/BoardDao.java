@@ -17,6 +17,8 @@ public interface BoardDao {
 	public int writePost(Map<String, String> map) throws Exception;
 	public int writetBoard(Map<String, String> map) throws Exception;
 	
+	public int updatePost(Map<String, String> map) throws Exception;
+	
 	public String getSequence(String name) throws Exception;
 	public int setSequence(Map<String, String> map) throws Exception;
 }

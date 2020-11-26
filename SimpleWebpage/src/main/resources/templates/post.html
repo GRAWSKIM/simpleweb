@@ -13,7 +13,14 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){});
+$(document).ready(function(){
+	
+	$("#inputReply").keydown(function(key) {
+		if (key.keyCode == 13) {
+			sendReply(0);	
+		}
+	});
+});
 
 function sendReply(depth){	
 
@@ -45,6 +52,8 @@ function addReply(comment){
 		"<tr><td>"+comment.reply+"</td><td>"+comment.createDate+"</td><td>"+comment.id+"</td>tr/>"	
 	);
 }
+
+
 </script>
 
 
@@ -59,12 +68,15 @@ function addReply(comment){
   <p th:text="${post.contents}"></p>
 </div>
 
+<a th:if="${IsWriter != null}" th:href=@{/write(boardkey=${IsWriter})} class="btn pull-right">수정</a>
+
 <table class="table table-striped">	
 	<thead>
 		<tr>
 			<th class="col-md-4">댓글</th>
 			<th class="col-md-2">작성일</th>
 			<th class="col-md-2">작성자</th>
+			<th class="col-md-1"></th>
 		</tr>
 	</thead>
 	<tbody class="table table-hover" id="replyArea">
@@ -72,7 +84,8 @@ function addReply(comment){
 			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
 			<td th:text=${comment.reply}>reply</td>
 			<td th:text=${comment.createDate}>createDate</td>
-			<td th:text=${comment.id}>createUser</td>		
+			<td th:text=${comment.id}>createUser</td>
+			<td>+</td>
 		</tr>
 	</tbody>
 </table>

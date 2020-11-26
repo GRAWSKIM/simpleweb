@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simple.DTO.BoardDTO;
 import com.simple.DTO.CommentDTO;
 import com.simple.Service.BoardService;
 
@@ -47,9 +48,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/write")
-	public String write(@RequestParam("id") String id) {
-				
-		return "/writepost";
+	public ModelAndView write(
+			@RequestParam(value = "boardkey",required = false) String boardkey,
+			ModelAndView mav) throws Exception {
+		
+		
+		if (boardkey!=null) {
+			mav.addObject("modify","Y");
+			mav.addObject("post",service.getPost(boardkey));
+		}
+		
+		mav.setViewName("/writepost");
+		return mav;
 	}
 	
 	@RequestMapping(value="/writepost", method = RequestMethod.POST)
@@ -73,14 +83,37 @@ public class BoardController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/editpost", method= RequestMethod.POST)
+	public ModelAndView editpost(
+			@RequestParam("title") String title,
+			@RequestParam("contents") String contents,
+			@RequestParam("pk") String pk,
+			ModelAndView mav) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();		
+		map.put("pk",pk);
+		map.put("title",title);
+		map.put("contents",contents);
+		
+		service.updatePost(map);
+		
+		mav.setViewName("/writepost");
+		mav.addObject("msg","수정되었습니다.");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/readpost")
 	public ModelAndView readPost(
 			ModelAndView mav,
 			HttpSession session,
 			@RequestParam("boardKey") String boardKey) throws Exception {
-		
-		mav.addObject("post", service.getPost(boardKey));
+		BoardDTO dto = service.getPost(boardKey);
+		mav.addObject("post",dto);
 		mav.addObject("comments", service.getComment(boardKey));
+		
+		if( session.getAttribute("loginid") != null && session.getAttribute("loginid").equals( dto.getCreateUser() ) ) {
+			mav.addObject("IsWriter",boardKey);
+		}
 		mav.setViewName("post");
 		
 		return mav;		
