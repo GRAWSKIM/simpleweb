@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "resources.notload.list",
+  "type": "java.lang.String",
+  "description": "A description for 'resources.notload.list'"
+}]}

@@ -26,6 +26,12 @@ public class SignInUpController {
 		return "/home";		
 	}
 	
+	@RequestMapping("/signin")
+	public String signin() {
+		
+		return "/signin";
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		//session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
@@ -40,8 +46,6 @@ public class SignInUpController {
 			ModelAndView mav,
 			HttpSession session ) throws Exception {
 		
-		System.out.println(id+":"+password);
-		
 		if(service.login(id, password)==false) {
 			mav.addObject("msg", "로그인 실패했습니다.");
 			mav.setViewName("/signin");			
@@ -55,7 +59,7 @@ public class SignInUpController {
 	
 	@RequestMapping(value="/signup")
 	public ModelAndView SignUp(ModelAndView mav) {
-		mav.setViewName("/signin");
+		mav.setViewName("/");
 		mav.addObject("flag","signup");
 		return mav;
 	}

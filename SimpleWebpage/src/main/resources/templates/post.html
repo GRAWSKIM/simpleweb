@@ -53,7 +53,6 @@ function addReply(comment){
 	);
 }
 
-
 </script>
 
 
@@ -76,16 +75,13 @@ function addReply(comment){
 			<th class="col-md-4">댓글</th>
 			<th class="col-md-2">작성일</th>
 			<th class="col-md-2">작성자</th>
-			<th class="col-md-1"></th>
 		</tr>
 	</thead>
 	<tbody class="table table-hover" id="replyArea">
 		<tr th:each="comment : ${comments}">
-			<!-- <td th:text=${board.title}><a href = "#" th:href="@{/readpost(boardKey=${board.pk})}">title</a></td>  -->
 			<td th:text=${comment.reply}>reply</td>
 			<td th:text=${comment.createDate}>createDate</td>
 			<td th:text=${comment.id}>createUser</td>
-			<td>+</td>
 		</tr>
 	</tbody>
 </table>

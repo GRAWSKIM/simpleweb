@@ -43,7 +43,6 @@ public class BoardServiceImpl implements BoardService{
 	public int getPageNo(String where) throws Exception {
 		
 		int result = dao.getPageNo(where);
-		System.out.println(result);
 		if (result > 0) {
 			float num  = (float)result/5;
 			return (int)Math.ceil(num);
